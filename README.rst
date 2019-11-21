@@ -2,4 +2,4 @@
 jutils
 ======
 
-Shared tool box for native java libraries.
+Shared toolbox for native java libraries.
