@@ -6,7 +6,7 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Minor: Added ``ptr_container``.
 
 1.0.0
 -----
