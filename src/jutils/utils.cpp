@@ -1,10 +1,7 @@
-
-// Copyright (c) 2016 Steinwurf ApS
+// Copyright (c) Steinwurf ApS 2016.
 // All Rights Reserved
 //
-// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF STEINWURF
-// The copyright notice above does not evidence any
-// actual or intended publication of such source code.
+// Distributed under the "BSD License". See the accompanying LICENSE.rst file.
 
 #include "utils.hpp"
 
@@ -160,9 +157,14 @@ jobjectArray string_vector_to_java_string_array(
 
 std::vector<uint8_t> java_byte_array_to_vector(JNIEnv* env, jbyteArray jbuffer)
 {
-    std::vector<uint8_t> buffer(env->GetArrayLength(jbuffer));
-    env->GetByteArrayRegion(jbuffer, 0, buffer.size(), (jbyte*)buffer.data());
-    return buffer;
+    uint8_t* data_ptr = (uint8_t*)env->GetByteArrayElements(jbuffer, JNI_FALSE);
+    jsize data_size = env->GetArrayLength(jbuffer);
+    // The vector will copy the original data, so it is safe to release
+    // the java byte array
+    std::vector<uint8_t> data(data_ptr, data_ptr + data_size);
+    env->ReleaseByteArrayElements(jbuffer, (jbyte*)data_ptr, JNI_ABORT);
+
+    return data;
 }
 
 jlong get_jlong_pointer_field(JNIEnv* env, jobject object)
