@@ -6,6 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* tbd
+
+2.1.0
+-----
 * Minor: Added ``get_boolean``, ``get_byte``, ``get_short``, ``get_int``,
   ``get_long``, ``get_float``, ``get_double``, and ``get_string``.
 
