@@ -5,11 +5,11 @@
 
 #pragma once
 
-#include <android/log.h>
 #include <algorithm>
+#include <android/log.h>
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 
 namespace jutils
 {
@@ -21,10 +21,11 @@ namespace jutils
 class logging
 {
 public:
-
-    logging(const char* file, int line, const char* tag,
-            android_LogPriority severity) :
-        m_file(file), m_tag(tag), m_severity(severity)
+    logging(
+        const char* file, int line, const char* tag,
+        android_LogPriority severity) :
+        m_file(file),
+        m_tag(tag), m_severity(severity)
     {
         // Prepend the stream with the file and line number.
         strip_basename(std::string(file), m_filename_only);
@@ -37,8 +38,8 @@ public:
         m_stream << std::endl;
 
         // Output the log string the Android log at the appropriate level.
-        __android_log_print(m_severity, m_tag.c_str(), "%s",
-                            m_stream.str().c_str());
+        __android_log_print(
+            m_severity, m_tag.c_str(), "%s", m_stream.str().c_str());
 
         // Indicate termination if needed.
         if (m_severity == ANDROID_LOG_FATAL)
@@ -49,10 +50,12 @@ public:
     }
 
     // Return the stream associated with the logger object.
-    std::stringstream& stream() { return m_stream; }
+    std::stringstream& stream()
+    {
+        return m_stream;
+    }
 
 private:
-
     void strip_basename(const std::string& full_path, std::string& filename)
     {
         // Try to find the last '/' character
@@ -74,7 +77,6 @@ private:
     }
 
 private:
-
     std::string m_file;
     std::string m_filename_only;
     std::string m_tag;
@@ -84,11 +86,15 @@ private:
 }
 
 // ---------------------- Macro definitions --------------------------
-#define LOGI jutils::logging((char*)__FILE__, __LINE__, \
-             "native", ANDROID_LOG_INFO).stream()
-#define LOGW jutils::logging((char*)__FILE__, __LINE__, \
-             "native", ANDROID_LOG_WARN).stream()
-#define LOGE jutils::logging((char*)__FILE__, __LINE__, \
-             "native", ANDROID_LOG_ERROR).stream()
-#define LOGF jutils::logging((char*)__FILE__, __LINE__, \
-             "native", ANDROID_LOG_FATAL).stream()
+#define LOGI                                                               \
+    jutils::logging((char*)__FILE__, __LINE__, "native", ANDROID_LOG_INFO) \
+        .stream()
+#define LOGW                                                               \
+    jutils::logging((char*)__FILE__, __LINE__, "native", ANDROID_LOG_WARN) \
+        .stream()
+#define LOGE                                                                \
+    jutils::logging((char*)__FILE__, __LINE__, "native", ANDROID_LOG_ERROR) \
+        .stream()
+#define LOGF                                                                \
+    jutils::logging((char*)__FILE__, __LINE__, "native", ANDROID_LOG_FATAL) \
+        .stream()

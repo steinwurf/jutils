@@ -5,9 +5,9 @@
 
 #include "utils.hpp"
 
+#include <cassert>
 #include <jni.h>
 #include <pthread.h>
-#include <cassert>
 
 #include "logging.hpp"
 
@@ -39,7 +39,7 @@ JNIEnv* attach_current_thread()
 // Unregister this thread from the VM
 void detach_current_thread(void* value)
 {
-    JNIEnv* env = (JNIEnv*) value;
+    JNIEnv* env = (JNIEnv*)value;
     if (env != NULL)
     {
         java_vm->DetachCurrentThread();
@@ -91,8 +91,7 @@ jmethodID get_method(
     JNIEnv* env, jclass clazz, const std::string& name,
     const std::string& signature)
 {
-    jmethodID method =
-        env->GetMethodID(clazz, name.c_str(), signature.c_str());
+    jmethodID method = env->GetMethodID(clazz, name.c_str(), signature.c_str());
 
     if (!method)
     {
@@ -100,6 +99,110 @@ jmethodID get_method(
     }
 
     return method;
+}
+
+jboolean get_boolean(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "Z");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " Z";
+    }
+
+    return env->GetBooleanField(object, field_id);
+}
+
+jbyte get_byte(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "B");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " B";
+    }
+
+    return env->GetByteField(object, field_id);
+}
+
+jshort get_short(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "S");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " S";
+    }
+
+    return env->GetShortField(object, field_id);
+}
+
+jint get_int(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "I");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " I";
+    }
+
+    return env->GetIntField(object, field_id);
+}
+
+jlong get_long(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "J");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " J";
+    }
+
+    return env->GetLongField(object, field_id);
+}
+
+jfloat get_float(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "F");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " F";
+    }
+
+    return env->GetFloatField(object, field_id);
+}
+
+jdouble get_double(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "D");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " D";
+    }
+
+    return env->GetDoubleField(object, field_id);
+}
+
+jstring get_string(JNIEnv* env, jobject object, const std::string& name)
+{
+    auto clazz = env->GetObjectClass(object);
+    auto field_id = env->GetFieldID(clazz, name, "Ljava/lang/String;");
+
+    if (!field_id)
+    {
+        LOGF << "Failed to find field " << name << " Ljava/lang/String;";
+    }
+
+    return (jstring)env->GetObjectField(object, field_id);
 }
 
 JNIEnv* init(JavaVM* vm)
@@ -114,8 +217,8 @@ JNIEnv* init(JavaVM* vm)
     }
 
     JNIEnv* env = nullptr;
-    if (java_vm->GetEnv(
-        reinterpret_cast<void**>(&env), JNI_VERSION_1_4) != JNI_OK)
+    if (java_vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_4) !=
+        JNI_OK)
     {
         LOGF << "Failed to get the environment using GetEnv()";
     }
@@ -140,16 +243,13 @@ jobjectArray string_vector_to_java_string_array(
     JNIEnv* env, const std::vector<std::string>& strings)
 {
     jobjectArray array = env->NewObjectArray(
-        strings.size(),
-        env->FindClass("java/lang/String"),
+        strings.size(), env->FindClass("java/lang/String"),
         env->NewStringUTF(""));
 
     for (uint32_t i = 0; i < strings.size(); ++i)
     {
         env->SetObjectArrayElement(
-            array,
-            i,
-            env->NewStringUTF(strings[i].c_str()));
+            array, i, env->NewStringUTF(strings[i].c_str()));
     }
 
     return array;
@@ -169,14 +269,6 @@ std::vector<uint8_t> java_byte_array_to_vector(JNIEnv* env, jbyteArray jbuffer)
 
 jlong get_jlong_pointer_field(JNIEnv* env, jobject object)
 {
-    auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, "pointer", "J");
-
-    if (!field_id)
-    {
-        LOGF << "Failed to find field pointer J";
-    }
-
-    return env->GetLongField(object, field_id);
+    return get_long(env, object, "pointer");
 }
 }
