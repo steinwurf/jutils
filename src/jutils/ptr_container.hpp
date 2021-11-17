@@ -9,14 +9,13 @@
 
 namespace jutils
 {
-template<class Object>
+template <class Object>
 class ptr_container
 {
 public:
-
-    ptr_container(std::shared_ptr<Object> object) :
-        m_object(object)
-    { }
+    ptr_container(std::shared_ptr<Object> object) : m_object(object)
+    {
+    }
 
     std::shared_ptr<Object> operator->()
     {
@@ -24,7 +23,6 @@ public:
     }
 
 private:
-
     std::shared_ptr<Object> m_object;
 };
 }
