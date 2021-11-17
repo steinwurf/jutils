@@ -74,4 +74,4 @@ T& get_native(JNIEnv* env, jobject object)
     jlong pointer = get_jlong_pointer_field(env, object);
     return get_native<T>(pointer);
 }
-} // namespace jutils
+}
