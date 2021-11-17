@@ -104,7 +104,7 @@ jmethodID get_method(
 jboolean get_boolean(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "Z");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "Z");
 
     if (!field_id)
     {
@@ -117,7 +117,7 @@ jboolean get_boolean(JNIEnv* env, jobject object, const std::string& name)
 jbyte get_byte(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "B");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "B");
 
     if (!field_id)
     {
@@ -130,7 +130,7 @@ jbyte get_byte(JNIEnv* env, jobject object, const std::string& name)
 jshort get_short(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "S");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "S");
 
     if (!field_id)
     {
@@ -143,7 +143,7 @@ jshort get_short(JNIEnv* env, jobject object, const std::string& name)
 jint get_int(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "I");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "I");
 
     if (!field_id)
     {
@@ -156,7 +156,7 @@ jint get_int(JNIEnv* env, jobject object, const std::string& name)
 jlong get_long(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "J");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "J");
 
     if (!field_id)
     {
@@ -169,7 +169,7 @@ jlong get_long(JNIEnv* env, jobject object, const std::string& name)
 jfloat get_float(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "F");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "F");
 
     if (!field_id)
     {
@@ -182,7 +182,7 @@ jfloat get_float(JNIEnv* env, jobject object, const std::string& name)
 jdouble get_double(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "D");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "D");
 
     if (!field_id)
     {
@@ -195,7 +195,7 @@ jdouble get_double(JNIEnv* env, jobject object, const std::string& name)
 jstring get_string(JNIEnv* env, jobject object, const std::string& name)
 {
     auto clazz = env->GetObjectClass(object);
-    auto field_id = env->GetFieldID(clazz, name, "Ljava/lang/String;");
+    auto field_id = env->GetFieldID(clazz, name.c_str(), "Ljava/lang/String;");
 
     if (!field_id)
     {
