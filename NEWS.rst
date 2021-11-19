@@ -6,11 +6,11 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Patch: Fix bug in ``byte_buffer::set_position``.
 
 2.2.0
 -----
-* Minor: Added byte_buffer wrapper.
+* Minor: Added ``byte_buffer`` wrapper.
 
 2.1.0
 -----

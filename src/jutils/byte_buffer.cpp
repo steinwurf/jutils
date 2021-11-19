@@ -90,7 +90,7 @@ void byte_buffer::set_position(JNIEnv* env, jobject jbuffer, jint new_position)
     jclass cls = env->GetObjectClass(jbuffer);
     jmethodID set_position_method =
         env->GetMethodID(cls, "position", "(I)Ljava/nio/ByteBuffer;");
-    env->CallIntMethod(jbuffer, set_position_method, new_position);
+    env->CallObjectMethod(jbuffer, set_position_method, new_position);
 }
 
 }
