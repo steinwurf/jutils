@@ -6,7 +6,8 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Major: ``byte_buffer::data`` is now called ``byte_buffer::direct_data``, and
+  requires a ByteBuffer which is directly allocated..
 
 2.2.1
 -----

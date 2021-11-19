@@ -9,25 +9,12 @@
 
 namespace jutils
 {
-uint8_t* byte_buffer::data(JNIEnv* env, jobject jbuffer)
+uint8_t* byte_buffer::direct_data(JNIEnv* env, jobject jbuffer)
 {
     jclass cls = env->GetObjectClass(jbuffer);
-    if (is_direct(env, jbuffer))
-    {
-        return (uint8_t*)env->GetDirectBufferAddress(jbuffer) +
-               position(env, jbuffer);
-    }
-    else if (has_array(env, jbuffer))
-    {
-
-        return (uint8_t*)env->GetByteArrayElements(
-                   get_array(env, jbuffer), JNI_FALSE) +
-               array_offset(env, jbuffer);
-    }
-    else
-    {
-        return nullptr;
-    }
+    assert(is_direct(env, jbuffer));
+    return (uint8_t*)env->GetDirectBufferAddress(jbuffer) +
+           position(env, jbuffer);
 }
 
 jint byte_buffer::limit(JNIEnv* env, jobject jbuffer)
