@@ -8,6 +8,10 @@ Latest
 ------
 * tbd
 
+2.2.0
+-----
+* Minor: Added byte_buffer wrapper.
+
 2.1.0
 -----
 * Minor: Added ``get_boolean``, ``get_byte``, ``get_short``, ``get_int``,
