@@ -6,6 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* tbd
+
+2.2.1
+-----
 * Patch: Fix bug in ``byte_buffer::set_position``.
 
 2.2.0
