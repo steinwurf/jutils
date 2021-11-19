@@ -11,8 +11,12 @@ namespace jutils
 {
 uint8_t* byte_buffer::direct_data(JNIEnv* env, jobject jbuffer)
 {
+    if (!is_direct(env, jbuffer))
+    {
+        return nullptr;
+    }
+
     jclass cls = env->GetObjectClass(jbuffer);
-    assert(is_direct(env, jbuffer));
     return (uint8_t*)env->GetDirectBufferAddress(jbuffer) +
            position(env, jbuffer);
 }

@@ -12,7 +12,7 @@ namespace jutils
 class byte_buffer
 {
 public:
-    static uint8_t* data(JNIEnv* env, jobject jbuffer);
+    static uint8_t* direct_data(JNIEnv* env, jobject jbuffer);
     static jint limit(JNIEnv* env, jobject jbuffer);
     static jint position(JNIEnv* env, jobject jbuffer);
     static jint capacity(JNIEnv* env, jobject jbuffer);
