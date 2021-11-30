@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 APPNAME = "jutils"
-VERSION = "3.0.1"
+VERSION = "3.1.0"
 
 
 def configure(conf):

@@ -6,6 +6,10 @@ every change, see the Git log.
 
 Latest
 ------
+* tbd
+
+3.1.0
+-----
 * Minor: Add ``jthrows`` class for exception helpers.
 * Minor: Fix ``byte_byffer::set_position`` to also work on older devices.
 
