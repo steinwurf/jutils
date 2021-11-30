@@ -79,9 +79,12 @@ jboolean byte_buffer::is_direct(JNIEnv* env, jobject jbuffer)
 void byte_buffer::set_position(JNIEnv* env, jobject jbuffer, jint new_position)
 {
     jclass cls = env->GetObjectClass(jbuffer);
+
+    /// Use the Buffer returning version of position.
+    /// This prevents the "Dreaded NoSuchMethodError" issue described here:
+    /// https://www.morling.dev/blog/bytebuffer-and-the-dreaded-nosuchmethoderror/
     jmethodID set_position_method =
-        env->GetMethodID(cls, "position", "(I)Ljava/nio/ByteBuffer;");
+        env->GetMethodID(cls, "position", "(I)Ljava/nio/Buffer;");
     env->CallObjectMethod(jbuffer, set_position_method, new_position);
 }
-
 }
