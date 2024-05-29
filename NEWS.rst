@@ -6,7 +6,7 @@ every change, see the Git log.
 
 Latest
 ------
-* tbd
+* Major: Update dependencies and use new waf.
 
 3.1.0
 -----
